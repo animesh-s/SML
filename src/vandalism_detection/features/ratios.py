@@ -3,6 +3,7 @@ import csv
 from search_file import find
 from create_csv import initialize, build_csv
 from diff_match_patch import diff_match_patch
+from edit import diff_inserted_text
 
 def calculate_size_ratio(old_size, new_size):
     return ((1.0 + old_size) / (1.0 + new_size))
@@ -16,24 +17,26 @@ def calculate_upper_to_lower_case_ratio(upper_count, lower_count):
 def calculate_upper_to_all_ratio(upper_count, lower_count):
     return ((1.0 + upper_count) / (1.0 + lower_count + upper_count))
 
+def calculate_non_alphanumeric_ratio(non_alphanumeric_count, total_count):
+    return ((1.0 + non_alphanumeric_count) / (1.0 + total_count))
+
 def calculate_ratios(old_text, new_text):
     size_ratio = calculate_size_ratio(len(old_text), len(new_text))
-    diff = diff_object.diff_main(old_text, new_text)
-    additions = [item[1] for item in diff if item[0] == 1]
-    inserted_text = "".join(additions)
-    inserted_text = inserted_text.replace(" ", "")
+    inserted_text = diff_inserted_text(old_text, new_text)
     digits = "".join(re.findall('\d+', inserted_text))
-    digit_ratio = calculate_digit_ratio(len(digits), len(inserted_text))
+    total_count = len(inserted_text)
+    digit_ratio = calculate_digit_ratio(len(digits), total_count)
     upper_count = len(re.findall(r'[A-Z]', inserted_text))
     lower_count = len(re.findall(r'[a-z]', inserted_text))
     upper_to_lower_ratio = calculate_upper_to_lower_case_ratio(upper_count, lower_count)
     upper_to_all_ratio = calculate_upper_to_all_ratio(upper_count, lower_count)
-    ratios = str(size_ratio) + ',' + str(digit_ratio) + ',' + str(upper_to_lower_ratio) + ',' + str(upper_to_all_ratio)
+    non_alphanumeric_count = len(re.findall(r'\W', inserted_text))
+    non_alphanumeric_ratio = calculate_non_alphanumeric_ratio(non_alphanumeric_count, total_count)
+    ratios = str(size_ratio) + ',' + str(digit_ratio) + ',' + str(upper_to_lower_ratio) + ',' + str(upper_to_all_ratio) + ',' + str(non_alphanumeric_ratio)
     return ratios
 
 if __name__ == "__main__":
     values, T = initialize()
-    diff_object = diff_match_patch()
     with open('../../../../dataset/edits.csv', 'rb') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:

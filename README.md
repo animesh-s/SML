@@ -1,3 +1,5 @@
+# SML
+Vandalism Detection in Wikipedia
 # Vandalism Detection in Wikipedia
 
 ## Problem Statement
@@ -34,4 +36,4 @@ We’ll use k-fold cross-validation for tuning these parameters and split the da
 
 We plan to plot these graphs to validate our experiments: Accuracy vs training size for all algorithms, Accuracy vs features selected from different algorithms, Accuracy vs parameter values, Accuracy comparison for all algorithms and ROC curves to measure the accuracy of the tests.
 
-Accuracy = (# Correct Predictions) / (# Data Points)
+Accuracy = {# Correct Predictions} / {# Data Points}

@@ -9,14 +9,13 @@ def is_anonymous(editor):
 
 if __name__ == "__main__":
     values = []
+    count = 0
     with open('../../../../dataset/edits.csv', 'rb') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             anonymous = is_anonymous(row['editor'])
             values.append(anonymous)
-    with open('../../../../features.csv', 'w') as featuresfile:
-        fieldnames = ['anonymous']
-        writer = csv.DictWriter(featuresfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for value in values:
-            writer.writerow({'anonymous': value})
+    writer = open('../../../../features.csv', 'w')
+    for value in values:
+        count = count + 1
+        writer.write(str(count) + ',' + str(value) + '\n')

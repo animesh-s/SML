@@ -1,9 +1,9 @@
 import csv
 import os
-from create_csv import build_csv
+from create_csv import initialize, build_csv
 
 if __name__ == "__main__":
-    values = []
+    values, T = initialize()
     with open('../../../../dataset/edits.csv', 'rb') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -11,4 +11,7 @@ if __name__ == "__main__":
             if comment == 'null':
                 comment = ''
             values.append(len(comment))
+            T = T - 1
+            if T == 0:
+                break
     build_csv(values)

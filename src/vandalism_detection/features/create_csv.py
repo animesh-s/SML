@@ -1,6 +1,11 @@
 import csv
 import os
 
+def initialize():
+    values = []
+    T = 10
+    return values, T
+
 def build_csv(values):
     db = {}
     reader = csv.reader(open('../../../../features.csv', 'r'))

@@ -1,7 +1,9 @@
 import csv
-import os
 from search_file import find
 from create_csv import initialize, build_csv
+
+def calculate_ratio(old_size, new_size):
+    return ((float)(1 + old_size) / (1 + new_size))
 
 if __name__ == "__main__":
     values, T = initialize()
@@ -14,7 +16,8 @@ if __name__ == "__main__":
             new_revision_path = find(newrevisionid+'.txt', '../../../../dataset/article-revisions/')
             old_text = open(old_revision_path,'r').read()
             new_text = open(new_revision_path,'r').read()
-            values.append(len(new_text) - len(old_text))
+            ratio = calculate_ratio(len(old_text), len(new_text))
+            values.append(ratio)
             T = T - 1
             if T == 0:
                 break

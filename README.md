@@ -1,5 +1,3 @@
-# SML
-Vandalism Detection in Wikipedia
 # Vandalism Detection in Wikipedia
 
 ## Problem Statement

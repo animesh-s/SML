@@ -69,3 +69,8 @@ def biased_words():
     "undoubtedly","unique","visionary","virtually","virtuoso","well-known","well-established","world-class","worst","coolest",
     "super","probably","hate","ugly","fat","lame","weird","strange","everyone","cares","boring","boreing","ever","huge","like",
     "idiotic","absolute","total","totally"}
+
+def pronouns():
+    return {"i","me","myself","mine","my","we","us","ourselves","ourself","ours","our","you","yourself","yours","your","thou",
+    "thee","thyself","thine","thy","yourselves","y'all","youse","you-uns","y'all","youse","yous","yis","yourselves","y'all's",
+    "selves","yous's"}

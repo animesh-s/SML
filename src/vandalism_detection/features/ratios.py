@@ -6,19 +6,19 @@ from diff_match_patch import diff_match_patch
 from edit import diff_inserted_text
 
 def calculate_size_ratio(old_size, new_size):
-    return ((1.0 + old_size) / (1.0 + new_size))
+    return round(((1.0 + old_size) / (1.0 + new_size)), 2)
 
 def calculate_digit_ratio(digit_count, total_count):
-    return ((1.0 + digit_count) / (1.0 + total_count))
+    return round(((1.0 + digit_count) / (1.0 + total_count)), 2)
 
 def calculate_upper_to_lower_case_ratio(upper_count, lower_count):
-    return ((1.0 + upper_count) / (1.0 + lower_count))
+    return round(((1.0 + upper_count) / (1.0 + lower_count)), 2)
 
 def calculate_upper_to_all_ratio(upper_count, lower_count):
-    return ((1.0 + upper_count) / (1.0 + lower_count + upper_count))
+    return round(((1.0 + upper_count) / (1.0 + lower_count + upper_count)), 2)
 
 def calculate_non_alphanumeric_ratio(non_alphanumeric_count, total_count):
-    return ((1.0 + non_alphanumeric_count) / (1.0 + total_count))
+    return round(((1.0 + non_alphanumeric_count) / (1.0 + total_count)), 2)
 
 def calculate_ratios(old_text, new_text):
     size_ratio = calculate_size_ratio(len(old_text), len(new_text))

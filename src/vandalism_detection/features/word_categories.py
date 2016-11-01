@@ -10,7 +10,7 @@ def calculate_vulgarism_ratio(inserted_words):
     for word in inserted_words:
         if word in vulgar_word_list:
             vulgar_words_count = vulgar_words_count + 1
-    return 0.0 if not inserted_words else ((float)(vulgar_words_count) / len(inserted_words))
+    return 0.00 if not inserted_words else round(((float)(vulgar_words_count) / len(inserted_words)), 2)
 
 def calculate_biased_ratio(inserted_words):
     biased_word_list = biased_words()
@@ -18,7 +18,7 @@ def calculate_biased_ratio(inserted_words):
     for word in inserted_words:
         if word in biased_word_list:
             biased_words_count = biased_words_count + 1
-    return 0.0 if not inserted_words else ((float)(biased_words_count) / len(inserted_words))
+    return 0.00 if not inserted_words else round(((float)(biased_words_count) / len(inserted_words)), 2)
 
 def calculate_pronoun_ratio(inserted_words):
     pronoun_word_list = pronouns()
@@ -26,7 +26,7 @@ def calculate_pronoun_ratio(inserted_words):
     for word in inserted_words:
         if word in pronoun_word_list:
             pronoun_words_count = pronoun_words_count + 1
-    return 0.0 if not inserted_words else ((float)(pronoun_words_count) / len(inserted_words))
+    return 0.00 if not inserted_words else round(((float)(pronoun_words_count) / len(inserted_words)), 2)
 
 def calculate_word_categories_ratios(inserted_words):
     lower_inserted_words = [word.lower() for word in inserted_words]

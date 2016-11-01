@@ -4,7 +4,7 @@ from edit import diff_inserted_text, diff_inserted_words
 from create_csv import initialize, build_csv
 from search_file import find
 
-def get_character_sequene_length(inserted_text):
+def get_character_sequence_length(inserted_text):
     char_length_array = [0]*256
 
     for i in range(0,256):
@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 if not word:
                     char_seq_len = 0
                 else:
-                    char_seq_len = max(get_character_sequene_length(word))
+                    char_seq_len = max(get_character_sequence_length(word))
 
                 if char_seq_len > longest_char_seq_len:
                     longest_char_seq_len = char_seq_len

@@ -14,7 +14,7 @@ def get_prob_dist(inserted_text):
     return prob_dist
 
 def get_entropy(prob_dist):
-    return scs.entropy(prob_dist)
+    return round(scs.entropy(prob_dist), 2)
 
 
 if __name__ == "__main__" :

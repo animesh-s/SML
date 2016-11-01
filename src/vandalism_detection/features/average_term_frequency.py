@@ -33,7 +33,7 @@ def calculate_average_term_frequency(inserted_words, new_text_words):
     for word in inserted_dict:
         if word in frequency_new_text_dict:
             value = value + (frequency_inserted_dict[word] / frequency_new_text_dict[word])
-    return ((1.0 + value) / (1.0 + len(inserted_dict)))
+    return round(((1.0 + value) / (1.0 + len(inserted_dict))), 2)
 
 if __name__ == "__main__":
     values, T = initialize()

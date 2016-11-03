@@ -28,8 +28,8 @@ def calculate_precision_recall(validation_labels, result):
             true_positive = true_positive + 1
     return calculate_metrics(true_positive, true_negative, false_positive, false_negative)
 
-def samples_and_labels(count, balance):
-    if balance:
+def samples_and_labels(count, use_balanced_set):
+    if use_balanced_set:
         training_samples = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = (1,2,3,9,11))
         training_labels = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = range(17,18) , dtype=None)
         validation_samples = genfromtxt('../../../../validation_set_' + str(count) + '.csv', delimiter=',', usecols = (1,2,3,9,11))

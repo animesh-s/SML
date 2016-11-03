@@ -1,6 +1,12 @@
 import csv
 import random
 
+def dataset_count(T, training_percent, validation_percent):
+    training_count = (int)(training_percent * T)
+    validation_count = (int)(validation_percent * T)
+    test_count = T - training_count - validation_count
+    return training_count, validation_count, test_count
+
 def reservoir_sampling(indices, training_count, validation_count, test_count):
     training_samples = random.sample(indices, training_count)
     training_samples.sort()
@@ -27,20 +33,28 @@ def create_dataset(samples, training_samples, validation_samples, test_samples):
     writer.close()
     print 'Data splitting done.\nTraining Set - 60%\nValidation Set - 20%\nTest Set - 20%'
 
-if __name__ == "__main__":
-    T = 32439
-    training_count = (int)(0.6 * T)
-    validation_count = (int)(0.2 * T)
-    test_count = T - training_count - validation_count
+if __name__ == "__main__":    
+    regular_training_count, regular_validation_count, regular_test_count = dataset_count(30045, 0.6, 0.2)
+    vandalism_training_count, vandalism_validation_count, vandalism_test_count = dataset_count(2394, 0.6, 0.2)
     samples = []
-    indices = []
+    regular_indices = []
+    vulgarism_indices = []
     count = 0
     print 'Preparing to split data ..'
     reader = csv.reader(open('../../../../features.csv', 'r'))
     for row in reader:
-        indices.append(count)
+        if row[17] == '0':
+            regular_indices.append(count)
+        else:
+            vulgarism_indices.append(count)
         samples.append(','.join(row))
         count = count + 1
-        
-    training_samples, validation_samples, test_samples = reservoir_sampling(indices, training_count, validation_count, test_count)
+    regular_training_samples, regular_validation_samples, regular_test_samples = reservoir_sampling(regular_indices, regular_training_count, regular_validation_count, regular_test_count)
+    vandalism_training_samples, vandalism_validation_samples, vandalism_test_samples = reservoir_sampling(vulgarism_indices, vandalism_training_count, vandalism_validation_count, vandalism_test_count)
+    training_samples = regular_training_samples + vandalism_training_samples
+    training_samples.sort()
+    validation_samples = regular_validation_samples + vandalism_validation_samples
+    validation_samples.sort()
+    test_samples = regular_test_samples + vandalism_test_samples
+    test_samples.sort()
     create_dataset(samples, training_samples, validation_samples, test_samples)

@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 from sklearn import preprocessing
-from metrics import calculate_precision_recall, calculate_metrics, samples_and_labels
+from metrics import calculate_precision_recall, samples_and_labels
 
 def fit_and_predict(clf, num_tree, max_depth, training_samples, training_labels, validation_samples, validation_labels):
     clf.fit(training_samples, training_labels)

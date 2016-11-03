@@ -38,7 +38,7 @@ if __name__ == "__main__":
     vandalism_training_count, vandalism_validation_count, vandalism_test_count = dataset_count(2394, 0.6, 0.2)
     samples = []
     regular_indices = []
-    vulgarism_indices = []
+    vandalism_indices = []
     count = 0
     print 'Preparing to split data ..'
     reader = csv.reader(open('../../../../features.csv', 'r'))
@@ -46,11 +46,11 @@ if __name__ == "__main__":
         if row[17] == '0':
             regular_indices.append(count)
         else:
-            vulgarism_indices.append(count)
+            vandalism_indices.append(count)
         samples.append(','.join(row))
         count = count + 1
     regular_training_samples, regular_validation_samples, regular_test_samples = reservoir_sampling(regular_indices, regular_training_count, regular_validation_count, regular_test_count)
-    vandalism_training_samples, vandalism_validation_samples, vandalism_test_samples = reservoir_sampling(vulgarism_indices, vandalism_training_count, vandalism_validation_count, vandalism_test_count)
+    vandalism_training_samples, vandalism_validation_samples, vandalism_test_samples = reservoir_sampling(vandalism_indices, vandalism_training_count, vandalism_validation_count, vandalism_test_count)
     training_samples = regular_training_samples + vandalism_training_samples
     training_samples.sort()
     validation_samples = regular_validation_samples + vandalism_validation_samples

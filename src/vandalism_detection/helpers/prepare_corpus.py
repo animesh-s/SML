@@ -15,7 +15,7 @@ if __name__ == "__main__":
         data = '0' if data == 'regular' else '1'
         db2[str(count)] = ','.join([edit_id, data])
         count = count + 1
-    writer = open('./new_features.csv', 'w')
+    writer = open('../../../../new_features.csv', 'w')
     for key in sorted(map(int, db1.keys())):
         edit_id, label = db2[str(key)].split(',')
         writer.write(edit_id + ',' + db1[str(key)] + ',' + label + '\n')

@@ -2,3 +2,4 @@ python==2.7.12
 numpy==1.11.2
 nltk==3.2.1
 scikit-learn==0.18
+mlxtend==0.4.2

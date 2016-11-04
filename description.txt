@@ -1,0 +1,16 @@
+Please follow the instructions below to test the classifiers.
+
+1. Make sure that the folder 'dataset' is located in the same directory as the folder 'WikipediaVandalismDetection'. We'll call this directory as the root directory.
+2. Go to the folder 'helpers' located in the src directory.
+3. Run the command: ./prepare_features.sh. This command prepares the file features.csv in the root directory.
+4. Run the command: python prepare_corpus.py. This command prepares the corpus by appending the tru label column to the end of features.
+5. Go to the directory 'classifier' and run the following commands to generate files for testing on validation set.
+6. python svm_rbf.py train
+7. python multinomial_naive_bayes.py train
+8. python random_forest.py train
+9. python logistic_regression.py
+10. Find the best estimate of the parameters of every classifier manually from the generated txt files in the root directory according to the F1 score.
+11. Now, test the classifiers on the test datasets using the estimated parameters by running the following commands.
+12. python svm_rbf test Gamma1 Gamma2 Gamma3 Gamma4 Gamma 5 Gamma6 C1 C2 C3 C4 C5 C6
+13. python multinomial_naive_bayes test Alpha1 Alpha2 Alpha3 Alpha4 Alpha5 Alpha6
+14. python random_forest.py test NumTree1 NumTree2 NumTree3 NumTree4 NumTree5 NumTree6 Max_Depth1 Max_Depth2 Max_Depth3 Max_Depth4 Max_Depth5 Max_Depth6

@@ -1,4 +1,5 @@
 import csv
+import sys
 import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
@@ -7,15 +8,15 @@ from metrics import calculate_precision_recall, samples_and_labels, create_resul
 from sklearn import svm
 from sklearn.svm import SVC
 
-def fit_and_predict(clf, gamma, C, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection):
+def fit_and_predict(clf, gamma, C, count, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection):
     clf.fit(training_samples, training_labels)
     result = clf.predict(validation_samples)
     accuracy, precision, recall, f_score = calculate_precision_recall(validation_labels, result)
-    print 'Gamma = ' + str(gamma) + '\nC = ' + str(C)+ '\nAccuracy = ' + str(accuracy) + '\nPrecision = ' + str(precision) + '\nRecall = ' + str(recall) + '\nF Score = ' + str(f_score) + '\n'
+    create_result_txt_for_svm_rbf(count, gamma, C, accuracy, precision, recall, f_score, use_balanced_set, use_feature_selection)
 
 def run_svm_rbf(clf, gamma, C, count, use_balanced_set, use_feature_selection):
     training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels = samples_and_labels(count, use_balanced_set, use_feature_selection)
-    fit_and_predict(clf, gamma,C, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection)
+    fit_and_predict(clf, gamma, C, count, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection)
 
 def test_svm_rbf(gamma, C, count, use_balanced_set, use_feature_selection):
     clf = svm.SVC(C=C, gamma=gamma)

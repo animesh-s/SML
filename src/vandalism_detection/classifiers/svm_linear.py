@@ -23,6 +23,6 @@ def run_SVM_Linear(clf,C, count):
 if __name__ == "__main__":
 	CArray=[0.01,0.1,1,10,100,500,1000]
 	for tempC in CArray:
-			clf = svm.LinearSVC(C=tempC)#C=0.01,kernel='rbf',gamma=0.1)
+			clf = svm.LinearSVC(C=tempC)
 			run_SVM_Linear(clf,tempC, 700)
 			run_SVM_Linear(clf,tempC, 2394)  

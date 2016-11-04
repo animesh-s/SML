@@ -41,7 +41,7 @@ def create_result_txt_for_random_forest(count, num_tree, max_depth, accuracy, pr
     writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(f_score) + '\n')
     writer.close()
 
-def samples_and_labels(count, use_balanced_set, use_feature_selection, naive_bayes = False):
+def test_classifier(count, use_balanced_set, use_feature_selection, naive_bayes = False):
     if use_feature_selection:
         features = [1,2,3,9,11]
     else:
@@ -60,3 +60,27 @@ def samples_and_labels(count, use_balanced_set, use_feature_selection, naive_bay
         validation_samples = genfromtxt('../../../../validation_set.csv', delimiter=',', usecols = features)
         validation_labels = genfromtxt('../../../../validation_set.csv', delimiter=',', usecols = range(17,18), dtype=None)
     return training_samples, training_labels, validation_samples, validation_labels
+
+def samples_and_labels(count, use_balanced_set, use_feature_selection, naive_bayes = False):
+    if use_feature_selection:
+        features = [1,2,3,9,11]
+    else:
+        if naive_bayes:
+            features = range(1,4) + range(5,17)
+        else:
+            features = range(1,17)
+    if use_balanced_set:
+        training_samples = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = features)
+        training_labels = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = range(17,18) , dtype=None)
+        validation_samples = genfromtxt('../../../../validation_set_' + str(count) + '.csv', delimiter=',', usecols = features)
+        validation_labels = genfromtxt('../../../../validation_set_' + str(count) + '.csv', delimiter=',', usecols = range(17,18), dtype=None)
+        test_samples = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = features)
+        test_labels = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = range(17,18), dtype=None)
+    else:
+        training_samples = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = features)
+        training_labels = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = range(17,18) , dtype=None)
+        validation_samples = genfromtxt('../../../../validation_set.csv', delimiter=',', usecols = features)
+        validation_labels = genfromtxt('../../../../validation_set.csv', delimiter=',', usecols = range(17,18), dtype=None)
+        test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
+        test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(17,18), dtype=None)
+    return training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels

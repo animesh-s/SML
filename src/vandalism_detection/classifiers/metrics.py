@@ -32,12 +32,12 @@ def calculate_precision_recall(validation_labels, result):
     return calculate_metrics(true_positive, true_negative, false_positive, false_negative)
 
 def create_result_txt_for_multinomial_naive_bayes(count, alpha, accuracy, precision, recall, f_score, use_balanced_set, use_feature_selection):
-    writer = open('../../../../multinomial_naive_bayes_' + str(count) + '_' + str(use_balanced_set) + '_' + str(use_feature_selection) + '.txt', 'a')
+    writer = open('../../../../multinomial_naive_bayes_' + str(count) + '_' + str(use_feature_selection) + '.txt', 'a')
     writer.write(str(alpha) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(f_score) + '\n')
     writer.close()
 
 def create_result_txt_for_random_forest(count, num_tree, max_depth, accuracy, precision, recall, f_score, use_balanced_set, use_feature_selection):
-    writer = open('../../../../random_forest_' + str(count) + '_' + str(use_balanced_set) + '_' + str(use_feature_selection) + '.txt', 'a')
+    writer = open('../../../../random_forest_' + str(count) + '_' + str(use_feature_selection) + '.txt', 'a')
     writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(f_score) + '\n')
     writer.close()
 

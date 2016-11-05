@@ -8,13 +8,16 @@ from sklearn import linear_model
 import csv
 
 
-TRAINING_SET = "../../../../training_set_700.csv"
-VALIDATION_SET = "../../../../validation_set_700.csv"
-TESTING_SET = "../../../../test_set_700.csv"
+TRAINING_SET = "../../../../training_set_2394.csv"
+VALIDATION_SET = "../../../../validation_set_2394.csv"
+TESTING_SET = "../../../../test_set_2394.csv"
 
 SAMPLE_FLAG = 'FULL' # 'PARTIAL' : means only N_SAMPLE_FLAG features will be loaded
 N_SAMPLE_FLAG = 20000
 SAMPLE_SIZE = 32439
+
+# Parameter for the algorithm
+C = 100
 
 
 # Model specific variables
@@ -43,6 +46,12 @@ def read_data(filename):
             if (not is_full) and sample_counter >= N_SAMPLE_FLAG: break
             sample_feature = sample[1:17]
             sample_feature_float = map(str_to_float,sample_feature)
+            # sample_feature_float = []
+            # sample_feature_float.append(float(sample[1]))
+            # sample_feature_float.append(float(sample[2]))
+            # sample_feature_float.append(float(sample[3]))
+            # sample_feature_float.append(float(sample[9]))
+            # sample_feature_float.append(float(sample[11]))
             X.append(sample_feature_float)
             Y.append(int(sample[17]))
             if int(sample[17]) == 0:
@@ -122,6 +131,23 @@ def start_training():
         [accuracy,error,recall,precision,specificity,f_measure] = get_validation_statistics(classifier)
 
         print C,' ',accuracy,' ',recall,' ',precision,' ',specificity,' ',f_measure
+
+def get_test_statistics(classifier):
+    [X,Y,X_0] = read_data(TESTING_SET)
+
+    y_pred = classifier.predict(X)
+
+    return  get_statistics(Y,y_pred)
+
+def start_testing():
+    [X,Y,X_0] = read_data(TRAINING_SET)
+
+    classifier = get_classifier(C)
+    classifier.fit(X,Y)
+
+    [accuracy,error,recall,precision,specificity,f_measure] = get_test_statistics(classifier)
+
+    print C,' ',accuracy,' ',recall,' ',precision,' ',specificity,' ',f_measure
 
 
 if __name__ == "__main__":

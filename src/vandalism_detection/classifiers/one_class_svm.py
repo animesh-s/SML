@@ -7,12 +7,12 @@ from sklearn.ensemble import IsolationForest
 
 import csv
 
-NU = 0.07
-GAMMA = 0.0001
+NU = 0.1
+GAMMA = 0.00001
 
 TRAINING_SET = "../../../../training_set.csv"
 VALIDATION_SET = "../../../../validation_set.csv"
-TESTING_SET = "../../../../test_set_700.csv"
+TESTING_SET = "../../../../test_set.csv"
 
 VALIDATION_STATISTICS = "../../../../validation_statistics.csv"
 TEST_STATISTICS = "../../../../test_statistics.csv"
@@ -20,6 +20,8 @@ TEST_STATISTICS = "../../../../test_statistics.csv"
 SAMPLE_FLAG = 'FULL' # 'PARTIAL' : means only N_SAMPLE_FLAG features will be loaded
 N_SAMPLE_FLAG = 20000
 SAMPLE_SIZE = 32439
+
+CONTAMINATION = 0.79
 
 def str_to_float(x):
     return float(x)
@@ -125,12 +127,12 @@ def get_validation_statistics(classifier):
 
 def get_test_statistics(classifier):
     
-    [X,Y] = read_data(TESTING_SET)
+    [X,Y,X_0] = read_data(TESTING_SET)
     y_pred = classifier.predict(X)
     
     return  get_statistics(Y,y_pred)
 
-def start_training_svm(algo):
+def start_training_svm():
     
     [X,Y,X_0] = read_data(TRAINING_SET)
     nu_arr = [0.00000001,0.0000001,0.000001,0.00001,0.0001,0.001,0.01,0.1]
@@ -141,10 +143,7 @@ def start_training_svm(algo):
             
             # Classification task done
             classifier = get_svm_classifierObject(nu,gamma)
-            if algo == 'NOVELTY':
-                classifier.fit(X_0)
-            if algo == 'OUTLIER':
-                classifier.fit(X)
+            classifier.fit(X_0)
             # Get the statistics on the validation set
 
             [accuracy,error,recall,precision,specificity,f_measure] = get_validation_statistics(classifier)
@@ -165,22 +164,36 @@ def start_training_isolation_forest():
         [accuracy,error,recall,precision,specificity,f_measure] = get_validation_statistics(classifier)
 
         print contamination,' ', round(accuracy,2),' ', round(error,2),' ', round(recall,2),' ', round(precision,2),' ', round(specificity,2),' ',round(f_measure,2)
-def start_testing():
 
-    classifier = get_trained_classifier()
-    get_test_statistics(classifier)
+def start_testing_svm():
+
+    classifier = get_svm_classifierObject(NU,GAMMA)
+    [X,Y,X_0] = read_data(TRAINING_SET)
+    classifier.fit(X)    
+    [accuracy,error,recall,precision,specificity,f_measure] = get_test_statistics(classifier)
+    print CONTAMINATION,' ', round(accuracy,2),' ', round(error,2),' ', round(recall,2),' ', round(precision,2),' ', round(specificity,2),' ',round(f_measure,2)
+
+def start_testing_isolation_forest():
+    classifier = get_isolation_forest(CONTAMINATION)
+    [X,Y,X_0] = read_data(TRAINING_SET)
+    classifier.fit(X)    
+    [accuracy,error,recall,precision,specificity,f_measure] = get_test_statistics(classifier)
+    print CONTAMINATION,' ', round(accuracy,2),' ', round(error,2),' ', round(recall,2),' ', round(precision,2),' ', round(specificity,2),' ',round(f_measure,2)
+
 
 if __name__ == "__main__":
 
     mode = sys.argv[1]
     algo = sys.argv[2]
-    perspective = sys.argv[3]
 
     if mode == 'TRAIN':
         if algo == 'SVM':
-            start_training_svm(perspective)
+            start_training_svm()
         if algo == 'ISOLATION_FOREST':
             start_training_isolation_forest()
 
     if mode == 'TEST':
-        start_testing()
+        if algo == 'SVM':
+            start_testing_svm()
+        if algo == 'ISOLATION_FOREST':
+            start_testing_isolation_forest()

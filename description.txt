@@ -14,9 +14,15 @@ Please follow the instructions below to test the classifiers.
 12. python svm_rbf.py train
 13. python multinomial_naive_bayes.py train
 14. python random_forest.py train
-15. python logistic_regression.py
-16. Find the best estimate of the parameters of every classifier manually from the generated txt files in the root directory according to the F1 score.
-17. Now, test the classifiers on the test datasets using the estimated parameters by running the following commands.
-18. python svm_rbf test Gamma1 Gamma2 Gamma3 Gamma4 Gamma 5 Gamma6 C1 C2 C3 C4 C5 C6
-19. python multinomial_naive_bayes test Alpha1 Alpha2 Alpha3 Alpha4 Alpha5 Alpha6
-20. python random_forest.py test NumTree1 NumTree2 NumTree3 NumTree4 NumTree5 NumTree6 Max_Depth1 Max_Depth2 Max_Depth3 Max_Depth4 Max_Depth5 Max_Depth6
+15. Open the file logistic_regression.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
+16. python logistic_regression.py TRAIN
+17. Open the file one_class_svm.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
+18. python one_class_svm.py TRAIN
+19. Find the best estimate of the parameters of every classifier manually from the generated txt files in the root directory according to the F1 score.
+20. Now, test the classifiers on the test datasets using the estimated parameters by running the following commands.
+21. python svm_rbf test Gamma1 Gamma2 Gamma3 Gamma4 Gamma 5 Gamma6 C1 C2 C3 C4 C5 C6
+22. python multinomial_naive_bayes test Alpha1 Alpha2 Alpha3 Alpha4 Alpha5 Alpha6
+23. python random_forest.py test NumTree1 NumTree2 NumTree3 NumTree4 NumTree5 NumTree6 Max_Depth1 Max_Depth2 Max_Depth3 Max_Depth4 Max_Depth5 Max_Depth6
+24. Open the file logistic_regression.py and set the global variables C to the estimated parameter.
+25. python logistic_regression.py TEST
+26. python one_class_svm.py TEST

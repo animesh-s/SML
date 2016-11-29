@@ -4,10 +4,8 @@ from edit import diff_inserted_text
 from create_csv import initialize, build_csv
 from search_file import find
 
-
 def get_prob_dist(inserted_text):
     prob_dist = [0]*256
-
     for char in inserted_text:
         prob_dist[ord(char)] += 1
 
@@ -15,7 +13,6 @@ def get_prob_dist(inserted_text):
 
 def get_entropy(prob_dist):
     return round(scs.entropy(prob_dist), 2)
-
 
 if __name__ == "__main__" :
     values, T = initialize()

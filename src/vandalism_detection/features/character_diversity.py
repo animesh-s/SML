@@ -6,10 +6,8 @@ from search_file import find
 
 def get_unique_char_count(inserted_text):
     char_arr = [0]*255
-
     for char in inserted_text:
         char_arr[ord(char)] = 1
-
     return sum(char_arr)
 
 if __name__ == "__main__" :
@@ -25,12 +23,10 @@ if __name__ == "__main__" :
             new_text = open(new_revision_path,'r').read()
             inserted_text = diff_inserted_text(old_text,new_text)
             length = len(inserted_text)
-
             if not inserted_text:
                 diversity = 0
             else:
-                unique_char_count = get_unique_char_count(inserted_text)
-                
+                unique_char_count = get_unique_char_count(inserted_text)    
                 # not sure if needed
                 if unique_char_count == 0:
                     diversity = 0

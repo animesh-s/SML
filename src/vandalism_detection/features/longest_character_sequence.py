@@ -38,18 +38,14 @@ if __name__ == "__main__":
             old_text = open(old_revision_path,'r').read()
             new_text = open(new_revision_path,'r').read()
             inserted_words = diff_inserted_words(old_text,new_text)
-
             longest_char_seq_len = 0
-            
             for word in inserted_words:
                 if not word:
                     char_seq_len = 0
                 else:
                     char_seq_len = max(get_character_sequence_length(word))
-
                 if char_seq_len > longest_char_seq_len:
                     longest_char_seq_len = char_seq_len
-    
             values.append(longest_char_seq_len)
             T = T - 1
             if T == 0:

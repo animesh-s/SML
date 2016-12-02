@@ -1,7 +1,6 @@
 import csv
 import os
 from create_csv import initialize, build_csv
-from word_categories import calculate_vulgarism_ratio, calculate_biased_ratio, calculate_pronoun_ratio, calculate_word_categories_ratios
 
 if __name__ == "__main__":
     values, T = initialize()

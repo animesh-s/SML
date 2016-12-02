@@ -3,8 +3,7 @@ import os
 
 def initialize():
     values = []
-    #T = 32439
-    T = 10
+    T = 32439
     return values, T
 
 def build_csv(values):

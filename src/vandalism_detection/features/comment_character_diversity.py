@@ -18,7 +18,7 @@ if __name__ == "__main__":
                 if unique_char_count == 0:
                     diversity = 0
                 else:
-                    diversity = pow(len(comment),1.0/unique_char_count)
+                    diversity = round(pow(len(comment),1.0/unique_char_count), 2)
             values.append(diversity)
             T = T - 1
             if T == 0:

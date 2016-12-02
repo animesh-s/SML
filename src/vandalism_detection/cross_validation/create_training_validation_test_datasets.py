@@ -31,11 +31,11 @@ def create_dataset(samples, training_samples, validation_samples, test_samples):
     for index in test_samples:
         writer.write(samples[index] + '\n')
     writer.close()
-    print 'Data splitting done.\nTraining Set - 60%\nValidation Set - 20%\nTest Set - 20%'
+    print 'Data splitting done.\nTraining Set - 80%\nTest Set - 20%'
 
 if __name__ == "__main__":    
-    regular_training_count, regular_validation_count, regular_test_count = dataset_count(30045, 0.6, 0.2)
-    vandalism_training_count, vandalism_validation_count, vandalism_test_count = dataset_count(2394, 0.6, 0.2)
+    regular_training_count, regular_validation_count, regular_test_count = dataset_count(30045, 0.8, 0)
+    vandalism_training_count, vandalism_validation_count, vandalism_test_count = dataset_count(2394, 0.8, 0)
     samples = []
     regular_indices = []
     vandalism_indices = []
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     print 'Preparing to split data ..'
     reader = csv.reader(open('../../../../features.csv', 'r'))
     for row in reader:
-        if row[17] == '0':
+        if row[24] == '0':
             regular_indices.append(count)
         else:
             vandalism_indices.append(count)

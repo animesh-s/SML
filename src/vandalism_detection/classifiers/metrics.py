@@ -63,10 +63,15 @@ def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, nai
         test_samples = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = features)
         test_labels = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
     else:
-        training_samples = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
-        training_labels = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
-        validation_samples = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
-        validation_labels = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
-        test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
-        test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(24,25), dtype=None)
-    return training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels
+        if fold == 0:
+            training_samples = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = features)
+            training_labels = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = range(24,25) , dtype=None)
+            test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
+            test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(24,25), dtype=None)
+            return training_samples, training_labels, test_samples, test_labels
+        else:
+            training_samples = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
+            training_labels = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
+            validation_samples = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
+            validation_labels = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
+            return training_samples, training_labels, validation_samples, validation_labels

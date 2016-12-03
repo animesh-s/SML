@@ -4,20 +4,13 @@ from scipy import stats
 from sklearn.decomposition import PCA
 import csv
 
-TRAINING_DATA = "../../../../training_set.csv"
-
-OUTPUT_FILE_NAME = "../../../../principal_components_"
-
-COMPONENT_COUNT = 10
-
-
-def read_data():
+def read_data(training_filename):
 
     indices = []
     data = []
     labels = []
 
-    with open(TRAINING_DATA,'rb') as csvfile:
+    with open(training_filename,'rb') as csvfile:
         datareader = csv.reader(csvfile,delimiter=',')
         for row in datareader:
             indices.append(row[0])
@@ -26,24 +19,16 @@ def read_data():
 
     return indices,data,labels
 
-def get_principal_components(X):
+def get_principal_components(data,n_components):
 
-    pca = PCA(n_components=COMPONENT_COUNT)
-    X_r = pca.fit_transform(X)
+    pca = PCA(n_components=n_components)
+    return pca.fit_transform(data)
 
-    return X_r
-
-def store_in_file(X_r,labels,indices):
+def store_in_file(X_r,labels,indices,output_filename):
     
-    with open(OUTPUT_FILE_NAME+str(COMPONENT_COUNT), 'wb') as csvfile:
+    with open(output_filename, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         for index,sample,label in zip(indices,X_r,labels):
             outrow = [index,sample,label]
             unrolled_outrow = [item for sublist in outrow for item in sublist]
             writer.writerow(unrolled_outrow)
-
-if __name__ == "__main__":
-
-    indices,data,labels = read_data()
-    X_r = get_principal_components(data)
-    store_in_file(X_r,labels,indices)

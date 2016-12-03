@@ -28,7 +28,7 @@ if __name__ == "__main__":
     if sys.argv[1] == 'train':
         max_depths = [5,7,9,11,13,15]
         num_trees = [5,7,9,11,13,15]
-        for i in range(1,6):
+        for fold in range(1,6):
             for max_depth in max_depths:
                 for num_tree in num_trees:
                     print 'Running for max_depth = ' + str(max_depth) + ' and num_tree = ' + str(num_tree) + '\n'
@@ -38,7 +38,7 @@ if __name__ == "__main__":
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, True)
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, False)
                     # run_Random_Forest(clf, num_tree, max_depth, 0, False, True)
-                    run_Random_Forest(clf, num_tree, max_depth, 0, i, False, False)
+                    run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, False)
     else:
         num_trees = sys.argv[2:8]
         max_depths = sys.argv[8:]

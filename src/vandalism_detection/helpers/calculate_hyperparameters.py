@@ -23,7 +23,6 @@ def calculate_hyperparameters(classifier):
             max_index = index
     return max_index
 
-
 if __name__ == "__main__":
     naive_bayes_index = calculate_hyperparameters('multinomial_naive_bayes')
     random_forest_index = calculate_hyperparameters('random_forest')

@@ -13,12 +13,12 @@ def fit_and_predict(clf, num_tree, max_depth, count, fold, training_samples, tra
     create_result_txt_for_random_forest(count, num_tree, max_depth, fold, accuracy, precision, recall, specificity, f_score, use_balanced_set, use_feature_selection)
 
 def run_Random_Forest(clf, num_tree, max_depth, count, fold, use_balanced_set, use_feature_selection):
-    training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels = samples_and_labels(count, fold, use_balanced_set, use_feature_selection)
+    training_samples, training_labels, validation_samples, validation_labels = samples_and_labels(count, fold, use_balanced_set, use_feature_selection)
     fit_and_predict(clf, num_tree, max_depth, count, fold, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection)
 
-def test_Random_Forest(num_tree, max_depth, count, fold, use_balanced_set, use_feature_selection):
+def test_Random_Forest(num_tree, max_depth, count, use_balanced_set, use_feature_selection):
     clf = RandomForestClassifier(n_estimators=num_tree, max_depth=max_depth)
-    training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels = samples_and_labels(count, fold, use_balanced_set, use_feature_selection)
+    training_samples, training_labels, test_samples, test_labels = samples_and_labels(count, 0, use_balanced_set, use_feature_selection)
     clf.fit(training_samples, training_labels)
     result = clf.predict(test_samples)
     accuracy, precision, recall, specificity, f_score = calculate_precision_recall(test_labels, result)

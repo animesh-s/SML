@@ -30,7 +30,7 @@ if __name__ == "__main__":
     if sys.argv[1] == 'train':
 		kArray=[1,2,3,4,5];
 		for k in kArray:	
-		    CArray = [100,0.1,1,10,100,1000]
+		    CArray = [0.01,0.1,1,10,100,1000]
 		    GammaArray = [0.01,0.1,1,10,100]
 		    for C in CArray:
 		        for gamma in GammaArray:
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 		            #run_svm_rbf(clf, gamma, C, 2394, True, True)
 		            #run_svm_rbf(clf, gamma, C, 2394, True, False)
 		            #run_svm_rbf(clf, gamma, C, 0, False, True)
-		            run_svm_rbf(clf, gamma, C, 0,k, False, False)
+		            run_svm_rbf(clf, gamma, C, 0,k, False, True)
     else:
 		gamma = 0.01
 		C = 1000

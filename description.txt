@@ -12,16 +12,47 @@ Please follow the instructions below to test the classifiers.
 10. Go to the directory 'classifier' and run the following commands to generate files for testing on validation set.
 11. python multinomial_naive_bayes.py train
 12. python random_forest.py train all (all is used for training on all features)
-13. python svm_rbf.py train
+13. python svm_linear.py train all
+14. python svm_rbf.py train all
+
+
+****************MOHIT*********************
 15. Open the file logistic_regression.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
 16. python logistic_regression.py TRAIN
 17. Open the file one_class_svm.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
 18. python one_class_svm.py TRAIN
-19. Find the best estimate of the parameters of every classifier manually from the generated txt files in the root directory according to the F1 score.
-20. Now, test the classifiers on the test datasets using the estimated parameters by running the following commands.
-21. python svm_rbf test Gamma1 Gamma2 Gamma3 Gamma4 Gamma 5 Gamma6 C1 C2 C3 C4 C5 C6
-22. python multinomial_naive_bayes test Alpha1 Alpha2 Alpha3 Alpha4 Alpha5 Alpha6
-23. python random_forest.py test NumTree1 NumTree2 NumTree3 NumTree4 NumTree5 NumTree6 Max_Depth1 Max_Depth2 Max_Depth3 Max_Depth4 Max_Depth5 Max_Depth6
-24. Open the file logistic_regression.py and set the global variables C to the estimated parameter.
-25. python logistic_regression.py TEST
-26. python one_class_svm.py TEST
+******************************************
+
+19. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.
+20. python calculate_hyperparameters.py false
+21. Now, test the classifiers on the test dataset test_set.csv using the estimated parameters by running the following commands.
+22. python multinomial_naive_bayes.py test 6.5536 (6.5536 is the value of the hyperparameter calculated above)
+23. python random_forest.py test 13 15 all (NumTree = 13, MaxDepth = 15)
+24. python svm_linear.py test 1 all (C = 1)
+25. python svm_rbf.py test 0.01 1000 all (Gamma = 0.01, C = 1000)
+
+****************MOHIT*********************
+26. Open the file logistic_regression.py and set the global variables C to the estimated parameter.
+27. python logistic_regression.py TEST
+28. python one_class_svm.py TEST
+******************************************
+
+29. Now, we repeat the above process of training and testing using PCA with 10 components.
+30. python random_forest.py train pca (pca is used for training on features selected using PCA)
+31. python svm_linear.py train pca
+32. python svm_rbf.py train pca
+
+****************MOHIT*********************
+33. Insert how to train with PCA in Logistic, One Class and Isolation Forest
+******************************************
+
+34. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.
+35. python calculate_hyperparameters.py true
+26. Now, test the classifiers on the test dataset test_set.csv using the estimated parameters by running the following commands.
+37. python random_forest.py test 9 15 pca (NumTree = 9, MaxDepth = 15)
+38. python svm_linear.py test 0.1 pca (C = 0.1)
+39. python svm_rbf.py test 0.01 1000 pca (Gamma = 0.01, C = 1000)
+
+****************MOHIT*********************
+40. Insert how to test with PCA in Logistic, One Class and Isolation Forest
+******************************************

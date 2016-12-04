@@ -18,9 +18,9 @@ def run_svm_rbf(clf, gamma, C, count, fold,  use_balanced_set, use_feature_selec
     training_samples, training_labels, validation_samples, validation_labels = samples_and_labels(count, fold,  use_balanced_set, use_feature_selection)
     fit_and_predict(clf, gamma, C, count, fold, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection)
 
-def test_svm_rbf(gamma, C, count, fold, use_balanced_set, use_feature_selection):
+def test_svm_rbf(gamma, C, count, use_balanced_set, use_feature_selection):
     clf = svm.SVC(C=C, gamma=gamma)
-    training_samples, training_labels, test_samples, test_labels = samples_and_labels(count, fold, use_balanced_set, use_feature_selection)
+    training_samples, training_labels, test_samples, test_labels = samples_and_labels(count, 0, use_balanced_set, use_feature_selection)
     clf.fit(training_samples, training_labels)
     result = clf.predict(test_samples)
     accuracy, precision, recall, specificity,f_score = calculate_precision_recall(test_labels, result)
@@ -28,22 +28,21 @@ def test_svm_rbf(gamma, C, count, fold, use_balanced_set, use_feature_selection)
 
 if __name__ == "__main__":
     if sys.argv[1] == 'train':
-		kArray=[1,2,3,4,5];
-		for k in kArray:	
-		    CArray = [0.01,0.1,1,10,100,1000]
-		    GammaArray = [0.01,0.1,1,10,100]
-		    for C in CArray:
-		        for gamma in GammaArray:
-		            print 'Running for gamma = ' + str(gamma) + ' and C = ' + str(C) + '\n'
-		            clf = svm.SVC(C=C, gamma=gamma)
-		            #run_svm_rbf(clf, gamma, C, 700, True, True)
-		            #run_svm_rbf(clf, gamma, C, 700, True, False)
-		            #run_svm_rbf(clf, gamma, C, 2394, True, True)
-		            #run_svm_rbf(clf, gamma, C, 2394, True, False)
-		            #run_svm_rbf(clf, gamma, C, 0, False, True)
-		            run_svm_rbf(clf, gamma, C, 0,k, False, True)
+        kArray=[1,2,3,4,5]
+        for k in kArray:
+            CArray = [0.01,0.1,1,10,100,1000]
+            GammaArray = [0.01,0.1,1,10,100]
+            for C in CArray:
+                for gamma in GammaArray:
+                    print 'Running for gamma = ' + str(gamma) + ' and C = ' + str(C) + '\n'
+                    clf = svm.SVC(C=C, gamma=gamma)
+                    if sys.argv[2] == 'pca':
+                        run_svm_rbf(clf, gamma, C, 0, k, False, True)
+                    else:
+                        run_svm_rbf(clf, gamma, C, 0, k, False, False)
     else:
-		gamma = 0.01
-		C = 1000
-		clf = svm.SVC(C=C, gamma=gamma)
-		test_svm_rbf(gamma, C, 0,0, False, False)
+        gamma, C = (float)(sys.argv[2]), (float)(sys.argv[3])
+        if sys.argv[4] == 'pca':
+            test_svm_rbf(gamma, C, 0, False, True)
+        else:
+            test_svm_rbf(gamma, C, 0, False, False)

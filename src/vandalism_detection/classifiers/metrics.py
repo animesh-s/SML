@@ -57,8 +57,8 @@ def create_result_txt_for_random_forest(count, num_tree, max_depth, fold, accura
 
 def pca(training_samples, training_labels, test_samples, test_labels, use_feature_selection):
     if use_feature_selection:
-        training_samples = get_principal_components(10, training_samples)
-        test_samples = get_principal_components(10, test_samples)
+        training_samples = get_principal_components(training_samples.tolist(), 10)
+        test_samples = get_principal_components(test_samples.tolist(), 10)
     return training_samples, training_labels, test_samples, test_labels
 
 def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, naive_bayes = False):

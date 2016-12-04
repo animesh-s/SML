@@ -1,6 +1,9 @@
 import csv
+import sys
 import numpy as np
 from numpy import genfromtxt
+sys.path.append('../PCA/')
+from pca_feature_selection import get_principal_components
 
 def calculate_metrics(true_positive, true_negative, false_positive, false_negative):
     if true_positive + false_positive == 0:
@@ -47,14 +50,17 @@ def create_result_txt_for_random_forest(count, num_tree, max_depth, fold, accura
     writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(specificity) + ' ' + str(f_score) + '\n')
     writer.close()
 
-def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, naive_bayes = False):
+def pca(training_samples, training_labels, test_samples, test_labels, use_feature_selection):
     if use_feature_selection:
-        features = [1,2,3,9,11]
+        training_samples = get_principal_components(10, training_samples)
+        test_samples = get_principal_components(10, test_samples)
+    return training_samples, training_labels, test_samples, test_labels
+
+def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, naive_bayes = False):
+    if naive_bayes:
+        features = range(1,4) + range(5,24)
     else:
-        if naive_bayes:
-            features = range(1,4) + range(5,24)
-        else:
-            features = range(1,24)
+        features = range(1,24)
     if use_balanced_set:
         training_samples = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = features)
         training_labels = genfromtxt('../../../../training_set_' + str(count) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
@@ -68,10 +74,10 @@ def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, nai
             training_labels = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = range(24,25) , dtype=None)
             test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
             test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(24,25), dtype=None)
-            return training_samples, training_labels, test_samples, test_labels
+            return pca(training_samples, training_labels, test_samples, test_labels, use_feature_selection)
         else:
             training_samples = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
             training_labels = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
             validation_samples = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
             validation_labels = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
-            return training_samples, training_labels, validation_samples, validation_labels
+            return pca(training_samples, training_labels, validation_samples, validation_labels, use_feature_selection)

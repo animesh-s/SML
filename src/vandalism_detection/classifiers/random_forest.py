@@ -37,14 +37,19 @@ if __name__ == "__main__":
                     # run_Random_Forest(clf, num_tree, max_depth, 700, True, False)
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, True)
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, False)
-                    run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, True)
-                    #run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, False)
+                    if sys.argv[2] == 'pca':
+                        run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, True)
+                    else:
+                        run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, False)
     else:
-        num_trees = sys.argv[2:8]
-        max_depths = sys.argv[8:]
+        num_trees, max_depth = sys.argv[2], sys.argv[3]
+        # num_trees = sys.argv[2:8]
+        # max_depths = sys.argv[8:]
         # test_Random_Forest((int)(num_trees[0]), (int)(max_depths[0]), 700, True, True)
         # test_Random_Forest((int)(num_trees[1]), (int)(max_depths[1]), 700, True, False)
         # test_Random_Forest((int)(num_trees[2]), (int)(max_depths[2]), 2394, True, True)
         # test_Random_Forest((int)(num_trees[3]), (int)(max_depths[3]), 2394, True, False)
-        test_Random_Forest((int)(num_trees[4]), (int)(max_depths[4]), 0, False, True)
-        # test_Random_Forest((int)(num_trees[5]), (int)(max_depths[5]), 0, False, False)
+        if sys.argv[4] == 'pca':
+            test_Random_Forest((int)(num_trees), (int)(max_depth), 0, False, True)
+        else:
+            test_Random_Forest((int)(num_trees), (int)(max_depth), 0, False, False)

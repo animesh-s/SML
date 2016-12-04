@@ -28,3 +28,18 @@ echo "Character Diversity Calculated $now"
 python ../features/word_categories.py
 now=$(date +"%T")
 echo "Word Categories Calculated. Finished $now"
+python ../features/comment_character_distribution.py
+now=$(date +"%T")
+echo "Comment Character Distribution Calculated. Finished $now"
+python ../features/comment_character_diversity.py
+now=$(date +"%T")
+echo "Comment Character Diversity Calculated. Finished $now"
+python ../features/comment_longest_character_sequence.py
+now=$(date +"%T")
+echo "COmment Longest Character Sequence Calculated. Finished $now"
+python ../features/comment_longest_word.py
+now=$(date +"%T")
+echo "Comment Longest Word Calculated. Finished $now"
+python ../features/comment_word_categories.py
+now=$(date +"%T")
+echo "Comment Word Categories Calculated. Finished $now"

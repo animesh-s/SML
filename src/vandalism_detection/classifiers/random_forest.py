@@ -37,8 +37,8 @@ if __name__ == "__main__":
                     # run_Random_Forest(clf, num_tree, max_depth, 700, True, False)
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, True)
                     # run_Random_Forest(clf, num_tree, max_depth, 2394, True, False)
-                    # run_Random_Forest(clf, num_tree, max_depth, 0, False, True)
-                    run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, False)
+                    run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, True)
+                    #run_Random_Forest(clf, num_tree, max_depth, 0, fold, False, False)
     else:
         num_trees = sys.argv[2:8]
         max_depths = sys.argv[8:]

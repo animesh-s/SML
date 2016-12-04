@@ -15,8 +15,8 @@ def fit_and_predict(clf,C,count,fold, training_samples, training_labels, validat
 	accuracy, precision, recall, specificity, f_score = calculate_precision_recall(validation_labels, result)
 	create_result_txt_for_svm_linear(count, C,fold, accuracy, precision, recall,specificity, f_score, use_balanced_set, use_feature_selection)
 def run_SVM_Linear(clf,C, count,fold):
-	training_samples, training_labels, validation_samples, validation_labels = samples_and_labels(count, fold,  False,False)
-	fit_and_predict(clf,C,count,fold, training_samples, training_labels, validation_samples, validation_labels, False,False)
+	training_samples, training_labels, validation_samples, validation_labels = samples_and_labels(count, fold,  False,True)
+	fit_and_predict(clf,C,count,fold, training_samples, training_labels, validation_samples, validation_labels, False,True)
 
 def test_SVM_Linear(tempC, count,fold):
 	clf = svm.LinearSVC(C=tempC)
@@ -31,8 +31,9 @@ def test_SVM_Linear(tempC, count,fold):
 if __name__ == "__main__":
 	kArray=[0]#,2,3,4,5];
 	for k in kArray:
-		CArray=[1]#,0.1,1,10,100,500,1000]
+		CArray=[0.1,1,10,100,500,1000]
 		for tempC in CArray:
 				print 'Running for C = ' + str(tempC) + '\n'
 				clf = svm.LinearSVC(C=tempC)
-				test_SVM_Linear(tempC,0,k)
+				run_SVM_Linear(clf, tempC, 0,k)
+				#test_SVM_Linear(tempC,0,k)

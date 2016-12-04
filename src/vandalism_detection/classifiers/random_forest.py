@@ -46,5 +46,5 @@ if __name__ == "__main__":
         # test_Random_Forest((int)(num_trees[1]), (int)(max_depths[1]), 700, True, False)
         # test_Random_Forest((int)(num_trees[2]), (int)(max_depths[2]), 2394, True, True)
         # test_Random_Forest((int)(num_trees[3]), (int)(max_depths[3]), 2394, True, False)
-        # test_Random_Forest((int)(num_trees[4]), (int)(max_depths[4]), 0, False, True)
-        test_Random_Forest((int)(num_trees[5]), (int)(max_depths[5]), 0, False, False)
+        test_Random_Forest((int)(num_trees[4]), (int)(max_depths[4]), 0, False, True)
+        # test_Random_Forest((int)(num_trees[5]), (int)(max_depths[5]), 0, False, False)

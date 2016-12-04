@@ -37,6 +37,7 @@ def create_result_txt_for_svm_rbf(count, gamma, C,fold, accuracy, precision, rec
     writer.write(str(gamma) + ' ' + str(C) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall)+ ' ' + str(specificity) + ' ' + str(f_score) + '\n')
     writer.close()
 
+
 def create_result_txt_for_svm_linear(count, C,fold, accuracy, precision, recall,specificity, f_score, use_balanced_set, use_feature_selection):
     writer = open('../../../../svm_linear_' + str(count) + '_' + str(fold) + '_' + str(use_feature_selection) + '.txt', 'a')
     writer.write(str(C) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall)+ ' ' + str(specificity) + ' ' + str(f_score) + '\n')
@@ -44,14 +45,17 @@ def create_result_txt_for_svm_linear(count, C,fold, accuracy, precision, recall,
 
 
 
-def create_result_txt_for_multinomial_naive_bayes(count, alpha, fold, accuracy, precision, recall, f_score, use_balanced_set, use_feature_selection):
+
+
+def create_result_txt_for_multinomial_naive_bayes(count, alpha, fold, accuracy, precision, recall, specificity, f_score, use_balanced_set, use_feature_selection):
+
     writer = open('../../../../multinomial_naive_bayes_' + str(count) + '_' + str(fold) + '_' + str(use_feature_selection) + '.txt', 'a')
     writer.write(str(alpha) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(specificity) + ' ' + str(f_score) + '\n')
     writer.close()
 
-def create_result_txt_for_random_forest(count, num_tree, max_depth, accuracy, precision, recall, f_score, use_balanced_set, use_feature_selection):
-    writer = open('../../../../random_forest_' + str(count) + '_' + str(use_feature_selection) + '.txt', 'a')
-    writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(f_score) + '\n')
+def create_result_txt_for_random_forest(count, num_tree, max_depth, fold, accuracy, precision, recall, specificity, f_score, use_balanced_set, use_feature_selection):
+    writer = open('../../../../random_forest_' + str(count) + '_' + str(fold) + '_' + str(use_feature_selection) + '.txt', 'a')
+    writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(specificity) + ' ' + str(f_score) + '\n')
     writer.close()
 
 def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, naive_bayes = False):
@@ -70,11 +74,15 @@ def samples_and_labels(count, fold, use_balanced_set, use_feature_selection, nai
         test_samples = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = features)
         test_labels = genfromtxt('../../../../test_set_' + str(count) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
     else:
-        
-        training_samples = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
-        training_labels = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
-        validation_samples = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
-        validation_labels = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
-        test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
-        test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(24,25), dtype=None)
-    return training_samples, training_labels, validation_samples, validation_labels, test_samples, test_labels
+        if fold == 0:
+            training_samples = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = features)
+            training_labels = genfromtxt('../../../../training_set.csv', delimiter=',', usecols = range(24,25) , dtype=None)
+            test_samples = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = features)
+            test_labels = genfromtxt('../../../../test_set.csv', delimiter=',', usecols = range(24,25), dtype=None)
+            return training_samples, training_labels, test_samples, test_labels
+        else:
+            training_samples = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
+            training_labels = genfromtxt('../../../../k_fold_training_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25) , dtype=None)
+            validation_samples = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = features)
+            validation_labels = genfromtxt('../../../../k_fold_test_set_' + str(fold) + '.csv', delimiter=',', usecols = range(24,25), dtype=None)
+            return training_samples, training_labels, validation_samples, validation_labels

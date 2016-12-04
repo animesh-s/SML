@@ -23,10 +23,10 @@ def create_dataset(samples, training_samples, validation_samples, test_samples):
     for index in training_samples:
         writer.write(samples[index] + '\n')
     writer.close()
-    writer = open('../../../../validation_set.csv', 'w')
-    for index in validation_samples:
-        writer.write(samples[index] + '\n')
-    writer.close()
+    # writer = open('../../../../validation_set.csv', 'w')
+    # for index in validation_samples:
+    #     writer.write(samples[index] + '\n')
+    # writer.close()
     writer = open('../../../../test_set.csv', 'w')
     for index in test_samples:
         writer.write(samples[index] + '\n')

@@ -39,10 +39,11 @@ if __name__ == "__main__":
                 # run_Multinomial_Naive_Bayes(clf, alpha, 0, False, True)
                 run_Multinomial_Naive_Bayes(clf, alpha, 0, fold, False, False)
     else:
-        alphas = sys.argv[2:]
+        alpha = sys.argv[2]
+        #alphas = sys.argv[2:]
         # test_Multinomial_Naive_bayes((float)(alphas[0]), 700, True, True)
         # test_Multinomial_Naive_bayes((float)(alphas[1]), 700, True, False)
         # test_Multinomial_Naive_bayes((float)(alphas[2]), 2394, True, True)
         # test_Multinomial_Naive_bayes((float)(alphas[3]), 2394, True, False)
         # test_Multinomial_Naive_bayes((float)(alphas[4]), 0, False, True)
-        test_Multinomial_Naive_bayes((float)(alphas[5]), 0, False, False)
+        test_Multinomial_Naive_bayes((float)(alpha), 0, False, False)

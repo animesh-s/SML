@@ -5,15 +5,14 @@ Please follow the instructions below to test the classifiers.
 3. Run the command: chmod 777 prepare_features.sh
 4. Run the command: ./prepare_features.sh. This command prepares the file features.csv in the root directory.
 5. Run the command: python prepare_corpus.py. This command prepares the corpus by appending the true label column to the end of features.
-6. Go to the folder 'cross_validation' and run the following commands to create the training-validation-testing dataset for the whole corpus and training-validation-testing datasets for the balanced labels dataset. This would create various csv files in the root directory.
+6. Go to the folder 'cross_validation' and run the following commands to create the training-testing dataset for the whole corpus. This would create two files in the root directory namely training_set.csv and testing_set.csv.
 7. python create_training_validation_test_datasets.py
-8. python create_equal_label_datasets.py
-9. Go to the directory 'features' and run the following command to select 5 most relevant features.
-10. python sequential_feature_selector.py
-11. Go to the directory 'classifier' and run the following commands to generate files for testing on validation set.
-12. python svm_rbf.py train
-13. python multinomial_naive_bayes.py train
-14. python random_forest.py train
+8. Run the following command to create k-fold training and test datasets on which the hyperparameters would be estimated. This would create 10 files in the root directory as we are selecting k = 5.
+9. python k_fold_cross_validation.py
+10. Go to the directory 'classifier' and run the following commands to generate files for testing on validation set.
+11. python multinomial_naive_bayes.py train
+12. python random_forest.py train all (all is used for training on all features)
+13. python svm_rbf.py train
 15. Open the file logistic_regression.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
 16. python logistic_regression.py TRAIN
 17. Open the file one_class_svm.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.

@@ -13,8 +13,8 @@ We will use the corpus of vandalism cases found on Wikipedia which is available 
 
 ### Algorithms
 
-We plan to implement these algorithms for the Binary Classification task: Multinomial Naive Bayes, Logistic Regression, and Linear and Radial Basis Kernel Support Vector Machine.
-We can also model this problem as an Anomaly Detection task and implement the One-class Support Vector Machine with Linear and Radial Basis Kernels. For the Feature Selection task, we plan to use the Greedy Subset and Forward Fitting algorithms.
+We plan to implement these algorithms for the Binary Classification task: Multinomial Naive Bayes, Logistic Regression, Linear and Radial Basis Kernel Support Vector Machine and Random Forest.
+We can also model this problem as an Anomaly Detection task and implement the One-class Support Vector Machine and Isolation Forest. For the Feature Selection task, we plan to use Principal Component Analysis.
 
 ### Parameter Tuning
 
@@ -26,12 +26,14 @@ C - For the Linear and Radial Basis Kernels
 
 Alpha - Smoothing parameter for Multinomial Naive Bayes
 
+NumTree - Number of trees for Random Forest
+
+MaxDepth - Max depth of tree for Random Forest
+
 L2 - Regularization parameter for Logistic Regression
 
-We’ll use k-fold cross-validation for tuning these parameters and split the dataset randomly into training and testing sets with 70% reserved for training and the rest of 30% for testing.
+We’ll use k-fold cross-validation for tuning these parameters and split the dataset randomly into training and testing sets with 80% reserved for training and the rest of 20% for testing.
 
 ### Experimental Plots
 
-We plan to plot these graphs to validate our experiments: Accuracy vs training size for all algorithms, Accuracy vs features selected from different algorithms, Accuracy vs parameter values, Accuracy comparison for all algorithms and ROC curves to measure the accuracy of the tests.
-
-Accuracy = {# Correct Predictions} / {# Data Points}
+We plan to plot these graphs to validate our experiments: Parameter Values vs F Measure, PR curves and ROC curves to measure the accuracy and F Measure of the tests.

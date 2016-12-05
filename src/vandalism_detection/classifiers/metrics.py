@@ -1,5 +1,6 @@
 import csv
 import sys
+import os
 import numpy as np
 from numpy import genfromtxt
 sys.path.append('../PCA/')
@@ -68,10 +69,12 @@ def create_result_txt_for_roc_and_pr_plots(classifier, clf, test_samples, test_l
         precision, recall, value = precision_recall_curve(y_true=test_labels,probas_pred=prob_estimates,pos_label=1)
     if use_feature_selection:
         classifier = classifier + '_pca'
-    writer = open('../../../../roc_' + classifier + '.txt', 'w')
+    if not os.path.exists('../../../../Results/'):
+        os.makedirs('../../../../Results/')
+    writer = open('../../../../Results/roc_' + classifier + '.txt', 'w')
     for index in range(len(fpr)):
         writer.write(str(fpr[index]) + ' ' + str(tpr[index]) + '\n')
-    writer = open('../../../../pr_' + classifier + '.txt', 'w')
+    writer = open('../../../../Results/pr_' + classifier + '.txt', 'w')
     for index in range(len(precision)):
         writer.write(str(precision[index]) + ' ' + str(recall[index]) + '\n')
 

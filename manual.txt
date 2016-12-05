@@ -1,4 +1,4 @@
-Please follow the instructions below to test the classifiers.
+Please try to follow the instructions below in order to test the classifiers.
 
 1. Make sure that the folder 'dataset' is located in the same directory as the folder 'WikipediaVandalismDetection'. We'll call this directory as the root directory.
 2. Go to the folder 'helpers' located in the src directory.
@@ -15,48 +15,36 @@ Please follow the instructions below to test the classifiers.
 13. python svm_linear.py train all
 14. python svm_rbf.py train all
 15. python logistic_regression.py KFOLD to do hyperparameter setting using k-fold cross-validation. The avegare F1 measure is printed on the output for different hyperparameters and visual examination is required to set it.
-16. python logistic_regression.py PCA_KFOLD to do hyperparameter setting using 10 principal components as features.
-17. python logistic_regression.py TEST (All features used)
-18. python logistic_regression.py TEST_PCA (10 principal components used)
-19. TRAINING_SET and TESTING_SET global variables in logistic_regression.py to change training and testing files.
+16. TRAINING_SET and TESTING_SET global variables in logistic_regression.py to change training and testing files.
 17. python one_class_svm.py VALIDATION SVM (Print average F1 measure for all hyperparameters. All features used)
 18. python one_class_svm.py VALIDATION ISOLATION_FOREST (Print average F1 measure for hyperparameters. All features used)
-19. python one_class_svm.py PCA_VALIDATION SVM (Print average F1 measure for hyperparameters using 10 principal components)
-20. python one_class_svm.py PCA_VALIDATION ISOLATION_FOREST (Print average F1 measure for hyperparameters using 10 principal components)
-21. python one_class_svm.py TEST SVM
-22. python one_class_svm.py TEST ISOLATION_FOREST
-******************************************
-
 19. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.
 20. python calculate_hyperparameters.py false
 21. Now, test the classifiers on the test dataset test_set.csv using the estimated parameters by running the following commands.
 22. python multinomial_naive_bayes.py test 6.5536 (6.5536 is the value of the hyperparameter calculated above)
 23. python random_forest.py test 13 15 all (NumTree = 13, MaxDepth = 15)
 24. python svm_linear.py test 1 all (C = 1)
-25. python svm_rbf.py test 0.01 1000 all (Gamma = 0.01, C = 1000)
-
-****************MOHIT*********************
-26. Open the file logistic_regression.py and set the global variables C to the estimated parameter.
-27. python logistic_regression.py TEST
-28. python one_class_svm.py TEST
-******************************************
-
-29. Now, we repeat the above process of training and testing using PCA with 10 components.
+25. python svm_rbf.py test 0.01 100 all (Gamma = 0.01, C = 100)
+26. python logistic_regression.py TEST (All features used)
+27. python one_class_svm.py TEST SVM
+28. python one_class_svm.py TEST ISOLATION_FOREST
+29. Now, we repeat the above process of training and testing using PCA with 10 components. The value of number of components can be changed by changing the value of the global variable N_COMPONENTS in the file pca_feature_selection.py in the folder 'helpers'.
 30. python random_forest.py train pca (pca is used for training on features selected using PCA)
 31. python svm_linear.py train pca
 32. python svm_rbf.py train pca
+33. python logistic_regression.py PCA_KFOLD to do hyperparameter setting using 10 principal components as features.
+34. python one_class_svm.py PCA_VALIDATION SVM (Print average F1 measure for hyperparameters using 10 principal components)
+35. python one_class_svm.py PCA_VALIDATION ISOLATION_FOREST (Print average F1 measure for hyperparameters using 10 principal components)
+36. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.
+37. python calculate_hyperparameters.py true
+38. Now, test the classifiers on the test dataset test_set.csv using the estimated parameters by running the following commands.
+39. python random_forest.py test 9 15 pca (NumTree = 9, MaxDepth = 15)
+40. python svm_linear.py test 0.1 pca (C = 0.1)
+41. python svm_rbf.py test 0.01 1000 pca (Gamma = 0.01, C = 1000)
+42. python logistic_regression.py TEST_PCA
+43. python one_class_svm.py TEST_PCA SVM
+44. python one_class_svm.py TEST_PCA ISOLATION_FOREST
+45. All the data for PR and ROC curve resides in Results folder. The files ROC.py and PR.py plots these curves. The path to the data files has to be set to the global variable PR_FILES and ROC_FILES respectively.
+46. For plotting parameter graphs vs F measure, use the two files plotOneParameter.py and plotTwoParameter.py in the 'plots' folder. In the files, specify the file name and paths generated in the root directory.
 
-****************MOHIT*********************
-33. Insert how to train with PCA in Logistic, One Class and Isolation Forest
-******************************************
-
-34. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.
-35. python calculate_hyperparameters.py true
-26. Now, test the classifiers on the test dataset test_set.csv using the estimated parameters by running the following commands.
-37. python random_forest.py test 9 15 pca (NumTree = 9, MaxDepth = 15)
-38. python svm_linear.py test 0.1 pca (C = 0.1)
-39. python svm_rbf.py test 0.01 1000 pca (Gamma = 0.01, C = 1000)
-
-****************MOHIT*********************
-40. Insert how to test with PCA in Logistic, One Class and Isolation Forest
-******************************************
+In the case, you face any difficulty in running any of the above steps, please email us.

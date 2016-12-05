@@ -14,13 +14,17 @@ Please follow the instructions below to test the classifiers.
 12. python random_forest.py train all (all is used for training on all features)
 13. python svm_linear.py train all
 14. python svm_rbf.py train all
-
-
-****************MOHIT*********************
-15. Open the file logistic_regression.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
-16. python logistic_regression.py TRAIN
-17. Open the file one_class_svm.py and set the global variables TRAINING_SET, VALIDATION_SET, TESTING_SET to the datasets on which training has to be done.
-18. python one_class_svm.py TRAIN
+15. python logistic_regression.py KFOLD to do hyperparameter setting using k-fold cross-validation. The avegare F1 measure is printed on the output for different hyperparameters and visual examination is required to set it.
+16. python logistic_regression.py PCA_KFOLD to do hyperparameter setting using 10 principal components as features.
+17. python logistic_regression.py TEST (All features used)
+18. python logistic_regression.py TEST_PCA (10 principal components used)
+19. TRAINING_SET and TESTING_SET global variables in logistic_regression.py to change training and testing files.
+17. python one_class_svm.py VALIDATION SVM (Print average F1 measure for all hyperparameters. All features used)
+18. python one_class_svm.py VALIDATION ISOLATION_FOREST (Print average F1 measure for hyperparameters. All features used)
+19. python one_class_svm.py PCA_VALIDATION SVM (Print average F1 measure for hyperparameters using 10 principal components)
+20. python one_class_svm.py PCA_VALIDATION ISOLATION_FOREST (Print average F1 measure for hyperparameters using 10 principal components)
+21. python one_class_svm.py TEST SVM
+22. python one_class_svm.py TEST ISOLATION_FOREST
 ******************************************
 
 19. Go to the folder 'helpers' and use the file calculate_hyperparameters to find the best estimate of the parameters of every classifier from the generated txt files in the root directory according to the F1 score.

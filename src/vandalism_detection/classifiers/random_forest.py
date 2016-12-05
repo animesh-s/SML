@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 from sklearn import preprocessing
-from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_random_forest
+from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_random_forest, create_result_txt_for_roc_and_pr_plots
 
 def fit_and_predict(clf, num_tree, max_depth, count, fold, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection):
     clf.fit(training_samples, training_labels)
@@ -22,6 +22,7 @@ def test_Random_Forest(num_tree, max_depth, count, use_balanced_set, use_feature
     clf.fit(training_samples, training_labels)
     result = clf.predict(test_samples)
     accuracy, precision, recall, specificity, f_score = calculate_precision_recall(test_labels, result)
+    create_result_txt_for_roc_and_pr_plots('random_forest', clf, test_samples, test_labels, use_feature_selection)
     print 'Accuracy = ' + str(accuracy) + '\nPrecision = ' + str(precision) + '\nRecall = ' + str(recall) + '\nSpecificity = ' + str(specificity) + '\nF1 Score = ' + str(f_score) + '\n' 
 
 if __name__ == "__main__":

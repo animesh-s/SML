@@ -3,6 +3,8 @@ import sys
 import numpy as np
 from numpy import genfromtxt
 sys.path.append('../PCA/')
+from sklearn import metrics
+from sklearn.metrics import precision_recall_curve
 from pca_feature_selection import get_principal_components
 
 def calculate_metrics(true_positive, true_negative, false_positive, false_negative):
@@ -54,6 +56,24 @@ def create_result_txt_for_random_forest(count, num_tree, max_depth, fold, accura
     writer = open('../../../../random_forest_' + str(count) + '_' + str(fold) + '_' + str(use_feature_selection) + '.txt', 'a')
     writer.write(str(num_tree) + ' ' + str(max_depth) + ' ' + str(accuracy) + ' ' + str(precision) + ' ' + str(recall) + ' ' + str(specificity) + ' ' + str(f_score) + '\n')
     writer.close()
+
+def create_result_txt_for_roc_and_pr_plots(classifier, clf, test_samples, test_labels, use_feature_selection):
+    if classifier == 'random_forest' or classifier == 'multinomial_naive_bayes':
+        prob_estimates = clf.predict_proba(test_samples)
+        fpr, tpr, thresholds = metrics.roc_curve(y_true=test_labels,y_score=prob_estimates[:,1],pos_label=1)
+        precision, recall, value = precision_recall_curve(y_true=test_labels,probas_pred=prob_estimates[:,1],pos_label=1)
+    else:
+        prob_estimates = clf.decision_function(test_samples)
+        fpr, tpr, thresholds = metrics.roc_curve(y_true=test_labels,y_score=prob_estimates,pos_label=1)
+        precision, recall, value = precision_recall_curve(y_true=test_labels,probas_pred=prob_estimates,pos_label=1)
+    if use_feature_selection:
+        classifier = classifier + '_pca'
+    writer = open('../../../../roc_' + classifier + '.txt', 'w')
+    for index in range(len(fpr)):
+        writer.write(str(fpr[index]) + ' ' + str(tpr[index]) + '\n')
+    writer = open('../../../../pr_' + classifier + '.txt', 'w')
+    for index in range(len(precision)):
+        writer.write(str(precision[index]) + ' ' + str(recall[index]) + '\n')
 
 def pca(training_samples, training_labels, test_samples, test_labels, use_feature_selection):
     if use_feature_selection:

@@ -4,7 +4,8 @@ import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
 from sklearn import preprocessing
-from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_multinomial_naive_bayes
+from sklearn import metrics
+from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_multinomial_naive_bayes, create_result_txt_for_roc_and_pr_plots
 
 def fit_and_predict(clf, alpha, count, fold, training_samples, training_labels, validation_samples, validation_labels, use_balanced_set, use_feature_selection):
     clf.fit(training_samples, training_labels)
@@ -22,6 +23,8 @@ def test_Multinomial_Naive_bayes(alpha, count, use_balanced_set, use_feature_sel
     clf.fit(training_samples, training_labels)
     result = clf.predict(test_samples)
     accuracy, precision, recall, specificity, f_score = calculate_precision_recall(test_labels, result)
+    if not use_feature_selection:
+        create_result_txt_for_roc_and_pr_plots('multinomial_naive_bayes', clf, test_samples, test_labels, use_feature_selection)
     print 'Accuracy = ' + str(accuracy) + '\nPrecision = ' + str(precision) + '\nRecall = ' + str(recall) + '\nSpecificity = ' + str(specificity) + '\nF1 Score = ' + str(f_score) + '\n'
 
 if __name__ == "__main__":

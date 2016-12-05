@@ -18,8 +18,6 @@ We can also model this problem as an Anomaly Detection task and implement the On
 
 ### Parameter Tuning
 
-Nu - For the One-class SVM
-
 Gamma - For the Radial Basis Kernel
 
 C - For the Linear and Radial Basis Kernels
@@ -30,7 +28,12 @@ NumTree - Number of trees for Random Forest
 
 MaxDepth - Max depth of tree for Random Forest
 
-L2 - Regularization parameter for Logistic Regression
+C - Regularization parameter for Logistic Regression
+
+Nu - For the One-class SVM
+
+Contamination - For the Isolation Forest
+
 
 We’ll use k-fold cross-validation for tuning these parameters and split the dataset randomly into training and testing sets with 80% reserved for training and the rest of 20% for testing.
 

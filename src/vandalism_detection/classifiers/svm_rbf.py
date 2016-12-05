@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
 from sklearn import preprocessing
-from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_svm_rbf
+from metrics import calculate_precision_recall, samples_and_labels, create_result_txt_for_svm_rbf, create_result_txt_for_roc_and_pr_plots
 from sklearn import svm
 from sklearn.svm import SVC
 
@@ -24,6 +24,7 @@ def test_svm_rbf(gamma, C, count, use_balanced_set, use_feature_selection):
     clf.fit(training_samples, training_labels)
     result = clf.predict(test_samples)
     accuracy, precision, recall, specificity,f_score = calculate_precision_recall(test_labels, result)
+    create_result_txt_for_roc_and_pr_plots('svm_rbf', clf, test_samples, test_labels, use_feature_selection)
     print 'Accuracy = ' + str(accuracy) + '\nPrecision = ' + str(precision) + '\nRecall = ' + str(recall) + '\nSpecificity = ' + str(specificity) + '\nF1 Score = ' + str(f_score) + '\n'
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from scipy import stats
 from sklearn.decomposition import PCA
 import csv
 
+N_COMPONENTS = 10
 def read_data(training_filename):
     indices = []
     data = []
@@ -29,5 +30,5 @@ def store_in_file(X_r,labels,indices,output_filename):
         writer.write(str(indices[index]) + ',' + str(sample) + ',' + str(labels[index]) + '\n')
 
 def get_principal_components(data, n_components):
-    pca = PCA(n_components=n_components)
+    pca = PCA(n_components=N_COMPONENTS)
     return pca.fit_transform(data)
